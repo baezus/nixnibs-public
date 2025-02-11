@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+    <title>Nixnib0002.0 :: Terminal</title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Replacing Reserved Characters with %s/old//new/g in Vim nixnib 0002.0 As a learning exercise, I decided to needlessly complicate a simple process and see what it showed me.
+I was writing this section from nixnib001 in markdown, using vim:
+#### nib (n.) &amp;#34;1580s, &amp;#39;beak or bill of a bird,&amp;#39; Scottish variant of *neb*, &amp;#39;beak or bill of a bird.&amp;#39; Perhaps influenced by *nibble* (v.). Meaning &amp;#39;point&amp;#39; (of a pen or quill) is recorded by 1610s (*neb* in this sense is from 1590s)." />
+<meta name="keywords" content=", " />
+
+  <meta name="robots" content="noodp" />
+
+<link rel="canonical" href="/posts/nixnib0002.0/" />
+
+
+
+
+
+  
+  <link rel="stylesheet" href="/css/buttons.min.2bc533403a27dfe0e93105a92502b42ce4587e2e4a87d9f7d349e51e16e09478.css">
+
+  
+  <link rel="stylesheet" href="/css/code.min.00125962708925857e7b66dbc58391d55be1191a3d0ce2034de8c9cd2c481c36.css">
+
+  
+  <link rel="stylesheet" href="/css/fonts.min.4881f0c525f3ce2a1864fb6e96676396cebe1e6fcef1933e8e1dde7041004fb5.css">
+
+  
+  <link rel="stylesheet" href="/css/footer.min.2e3eb191baee58dd05a9f0104ac1fab0827bca7c64dafe0b2579f934c33a1d69.css">
+
+  
+  <link rel="stylesheet" href="/css/gist.min.a751e8b0abe1ba8bc53ced52a38b19d8950fe78ca29454ea8c2595cf26aad5c0.css">
+
+  
+  <link rel="stylesheet" href="/css/header.min.b6fb4423cf82a9f9d7abc9cd010223fa3d70a6526a3f28f8e17d814c06e18f9e.css">
+
+  
+  <link rel="stylesheet" href="/css/main.min.fe8dc560fccb53a458b0db19ccb7b265764ac46b68596b7e099c6793054dd457.css">
+
+  
+  <link rel="stylesheet" href="/css/menu.min.83637a90d903026bc280d3f82f96ceb06c5fc72b7c1a8d686afb5bbf818a29f7.css">
+
+  
+  <link rel="stylesheet" href="/css/pagination.min.82f6400eae7c7c6dc3c866733c2ec0579e4089608fea69400ff85b3880aa0d3c.css">
+
+  
+  <link rel="stylesheet" href="/css/post.min.fc74ca360273c1d828da3c02b8174eba435607b369d98418ccc6f2243cd4e75d.css">
+
+  
+  <link rel="stylesheet" href="/css/prism.min.9023bbc24533d09e97a51a0a42a5a7bfe4c591ae167c5551fb1d2191d11977c0.css">
+
+  
+  <link rel="stylesheet" href="/css/syntax.min.cc789ed9377260d7949ea4c18781fc58959a89287210fe4edbff44ebfc1511b6.css">
+
+  
+  <link rel="stylesheet" href="/css/terminal.min.4b367d85d0d0061435650561285afed36c46a7cf8dc6d7ed5642d98e589fa622.css">
+
+  
+  <link rel="stylesheet" href="/css/terms.min.b81791663c3790e738e571cdbf802312390d30e4b1d8dc9d814a5b5454d0ac11.css">
+
+
+
+
+
+
+
+<link rel="shortcut icon" href="/favicon.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+
+<meta name="twitter:card" content="summary" />
+
+  
+    <meta name="twitter:site" content="" />
+  
+    <meta name="twitter:creator" content="" />
+
+
+
+<meta property="og:locale" content="en" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Nixnib0002.0">
+<meta property="og:description" content="Replacing Reserved Characters with %s/old//new/g in Vim nixnib 0002.0 As a learning exercise, I decided to needlessly complicate a simple process and see what it showed me.
+I was writing this section from nixnib001 in markdown, using vim:
+#### nib (n.) &amp;#34;1580s, &amp;#39;beak or bill of a bird,&amp;#39; Scottish variant of *neb*, &amp;#39;beak or bill of a bird.&amp;#39; Perhaps influenced by *nibble* (v.). Meaning &amp;#39;point&amp;#39; (of a pen or quill) is recorded by 1610s (*neb* in this sense is from 1590s)." />
+<meta property="og:url" content="/posts/nixnib0002.0/" />
+<meta property="og:site_name" content="Terminal" />
+
+  
+  
+  <meta property="og:image" content="/">
+
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="627">
+
+
+  <meta property="article:published_time" content="2025-02-10 23:14:42 -0500 EST" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="/css/Terminal.css">
+</head>
+<body>
+
+
+<div class="container">
+
+  <header class="header">
+  <div class="header__inner">
+    <div class="header__logo">
+      <a href="/">
+  <div class="logo">
+    Terminal
+  </div>
+</a>
+
+    </div>
+    
+      <ul class="menu menu--mobile">
+  <li class="menu__trigger">Menu&nbsp;▾</li>
+  <li>
+    <ul class="menu__dropdown">
+      
+        
+          <li><a href="/about">About</a></li>
+        
+      
+        
+          <li><a href="/showcase">Showcase</a></li>
+        
+      
+      
+    </ul>
+  </li>
+</ul>
+
+    
+    
+  </div>
+  
+    <nav class="navigation-menu">
+  <ul class="navigation-menu__inner menu--desktop">
+    
+      
+        
+          <li><a href="/about" >About</a></li>
+        
+      
+        
+          <li><a href="/showcase" >Showcase</a></li>
+        
+      
+      
+    
+  </ul>
+</nav>
+
+  
+</header>
+
+
+  <div class="content">
+    
+<article class="post">
+  <h1 class="post-title">
+    <a href="/posts/nixnib0002.0/">Nixnib0002.0</a>
+  </h1>
+  <div class="post-meta"><time class="post-date">2025-02-10</time></div>
+
+  
+    <span class="post-tags">
+      
+      #<a href="/tags/"></a>&nbsp;
+      
+      #<a href="/tags/"></a>&nbsp;
+      
+    </span>
+  
+  
+
+
+  
+
+  <div class="post-content"><div>
+        <h1 id="replacing-reserved-characters-with-soldnewg-in-vim">Replacing Reserved Characters with %s/old//new/g in Vim<a href="#replacing-reserved-characters-with-soldnewg-in-vim" class="hanchor" ariaLabel="Anchor">#</a> </h1>
+<h4 id="nixnib-00020">nixnib 0002.0<a href="#nixnib-00020" class="hanchor" ariaLabel="Anchor">#</a> </h4>
+<p>As a learning exercise, I decided to needlessly complicate a simple process and see what it showed me.</p>
+<p>I was writing this section from nixnib001 in markdown, using vim:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-markdown" data-lang="markdown"><span style="display:flex;"><span><span style="color:#75715e">#### nib (n.)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>&#34;1580s, &#39;beak or bill of a bird,&#39; Scottish variant of <span style="font-style:italic">*neb*</span>, &#39;beak or bill of a bird.&#39; Perhaps influenced by <span style="font-style:italic">*nibble*</span> (v.). Meaning &#39;point&#39; (of a pen or quill) is recorded by 1610s (*neb* in this sense is from 1590s).&#34; (https://www.etymonline.com/word/nib)[etymonline]                                     
+</span></span></code></pre></div><p>As I was writing this (just converting straight-up text to markdown, closer to transcribing than writing), I forgot how to enter italics in markdown, and wrote forward-slashes (<code>/</code>) around every italicized word, as in <code>/nibble/</code> and <code>/neb/</code>, as placeholders to be corrected later. When I remembered that asterisks (<code>*</code>) were the proper special character, I wanted to try to use the mysterious, important <code>%s/old/new/g</code> vim command to edit the entire file at once. I&rsquo;d heard about it studying for the RHCSA, and that is how it is presented in the study guide for EX200 by Sander Van Vugt.</p>
+<p>I realized that forward-slashes are special characters, and this was going to be a regex nightmare. I got <code>:%s/\/*\//\*\\\*/g</code> far when my brain broke. I understood that I had to escape the forward slashes, which is what <code>/\/*\/</code> is trying to do.</p>
+<p>I did not know how to express that I needed a variable range of characters within the escaped slashes (e.g., a <code>nibble</code> as well as a <code>neb</code>) to properly place the asterisks around the italicized words. Naturally, I pulled up ChatGPT (heretofore: Chat).</p>
+<p>It gave me the following vim regex command, and then some explanation:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-vim" data-lang="vim"><span style="display:flex;"><span>:%<span style="color:#a6e22e">s</span><span style="color:#e6db74">/\/\([^\/]\+\)\//</span>\*\<span style="color:#ae81ff">1</span>\*/<span style="color:#a6e22e">g</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-markdown" data-lang="markdown"><span style="display:flex;"><span>Explanation:
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    \/ → Escapes the first / so it is treated as a literal slash.
+</span></span><span style="display:flex;"><span>    \([^\/]\+\) → Captures (\(\)) one or more (\+) characters that are not a slash ([^\/]).
+</span></span><span style="display:flex;"><span>    \/ → Matches the closing slash.
+</span></span><span style="display:flex;"><span>    \*\1\* → Replaces with <span style="font-style:italic">*, then the captured text (\1), then another *</span>.
+</span></span><span style="display:flex;"><span>    g → Ensures all instances in a line are replaced.
+</span></span></code></pre></div><p>I ran that command and it worked.</p>
+<p>So, TL;DR you&rsquo;re in this exact situation (lol), run this to replace all the <code>/</code> around italicized words in vim with <code>*</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-vim" data-lang="vim"><span style="display:flex;"><span>:%<span style="color:#a6e22e">s</span><span style="color:#e6db74">/\/\([^\/]\+\)\//</span>\*\<span style="color:#ae81ff">1</span>\*/<span style="color:#a6e22e">g</span>
+</span></span></code></pre></div><p>I hope that saved you and planet earth a Chat processing token.</p>
+<p>Trying to understand what it is my computer just did, I pulled up <em>The Linux Bible</em> by Christopher Negus. The exalted text reveals that the <code>:s</code> and <code>:g</code> commands in vim are actually, basically, pre-historical. Ultimately, they actually come from an editor named <code>ex</code>. They appear <code>sed</code>-like (to me) because both ex and sed are children of ed, the OG Unix editor.</p>
+<p>After the delimiter <code>:</code> that opens a vim command,<code>s/</code> is the actual command being run here: a substitute or find-and-replace. The <code>/g</code> flag at the close of the line argues that the command should target for substitution <em>every</em> instance on a line of &ldquo;old&rdquo; for &ldquo;new,&rdquo; rather than stop at the first instance on a line. The default behavior for <code>:s</code> is for only the first result on the first line found to be changed.</p>
+<p>Every instance of &ldquo;old&rdquo; on the first line where &ldquo;old&rdquo; occurs is included by <code>/g</code>, but the command still only targets that first line it finds. To include every line in the file as a potential target, we add the <code>%</code> before <code>s</code>. That signifies that every line in the file must be acted on, regardless of whether the line prior did or did not include an instance of &ldquo;old.&rdquo;</p>
+<p>Interestingly, <em>The Linux Bible</em> offers the command as <code>:g/Local/s//Remote/g</code> rather than <code>:%s/old/new/g</code>. It eliminates the <code>%</code> by running <code>s</code> as a global command upon a given pattern, with (<code>:g/&lt;!pattern!&gt;/</code>). Rather than running the <code>s</code> program against every line, then, the <code>:g</code> command will only run <code>s</code> against the lines that are found to match the given pattern.</p>
+<p>Far fewer lines are &rsquo;touched&rsquo; or modified this way, which is resourceful. This method can also protect from unintended replacements, according to Chat, but its examples didn&rsquo;t prove that very well to me. I like both, and I like more knowing the difference. Please send me any examples or explanations you have that can further explain that difference.</p>
+<p>Back to the wild regex. My goal is to understand. Next chunk up, with <code>:%s\/\.../g</code> covered, is <code>\([^\/]\+\)\/</code>.</p>
+<p>I guess regex phrases are best understood like meter in poetry, where minute sub-units dictate cardinal meaning-making boundaries, and these boundaries must be mapped to extract the phrases. What I mean is, in formal poetry, there&rsquo;s a significant difference in interpretation when <code>\ _ \ _</code> (stress-unstress-stress-unstress) is read as, simply, two trochees, versus as a headless iamb followed by another iamb with an extra unstressed syllable. As in poetry, so in regex. The difference between <code>\/\/\</code> and <code>\/\</code>is ginormous.</p>
+<p><code>s/</code> to begin the substitution command</p>
+<p>&amp; <code>\/</code> to escape the opening forward-slash as a literal character</p>
+<p>&amp; <code>\(</code> open the sub-pattern capture group</p>
+<p>&amp;<code>[^\/]</code>  should be understood as <code>[^...]</code> because that is another sub-group. <code>^</code> signals NOT, the anti-pattern of what is contained in the brackets. In this case, we have an escaped forward-slash. So we are gathering every character that is not a slash.</p>
+<p>Important: Within a <code>[^...]</code> construction, most special characters are understood as literals and do not need to be escaped. The only ones that need to be escaped are those that function specially within the <code>[^...]</code>, like hyphens. This won&rsquo;t cause an error, but that is why, in this case, the <code>\</code> and <code>/</code> don&rsquo;t require escaping, if you were wondering.</p>
+<p>&amp; <code>\+</code> an open-ended counter, to match one or more of the anti-pattern previous.</p>
+<p>&amp; <code>\)</code> escape the sub-pattern capture group closing</p>
+<p>&amp; <code>\/</code> to escape the closing forward-slash as a literal character. This seals the capture group as the content of my errant placeholder forward-slashes.</p>
+<p>The parenthetical regex structure creates a (<a href="https://www.regular-expressions.info/brackets.html">https://www.regular-expressions.info/brackets.html</a>) [capturing group]. They&rsquo;re kind of like, how, with a bash script, every argument that follows the command is given a variable name of $1, $2, &hellip; etc. following the cmd itself at $0. A capturing group in regex can be used to grab the part of a string that matches the sub-pattern declared within parenthesis, and then refer to that pattern (or submatch) with a numerical figure (as in, <code>\1</code>).</p>
+<p>So in the above, <code>\(</code> is the beginning of our capture group, and <code>\)</code> is the end. We should be able to re-use content captured by the submatch.</p>
+<p>After the <code>\/</code> that follows completes the search portion of our expression, a standalone <code>/</code> opens the replacement portion of the substitution command.</p>
+<p>Next, we have: <code>\*\1\*/</code>. This part is far simpler.</p>
+<p><code>\*</code> is an escaped asterisk character, which signals italics in markdown, opening the replacement string</p>
+<p>&amp; <code>\1</code> refers to our captured sub-match above. On a given line that matches the search for an enclosing <code>\/...\/</code>, the partial match of all characters within the <code>\([^\/]\+\)\/</code> are deployed in the replacement string where that <code>\1</code> resides. In our case, after the opening asterisk.</p>
+<p>&amp; <code>\*</code> is simply an escaped closing asterisk</p>
+<p>&amp; <code>/</code> is the close of our replacement string, a structure of the larger <code>:%s/.../.../</code> pattern.</p>
+<p>Finally, we have the trailing flag <code>g</code>, which has our search &amp; substitute operate on all instances within a line, rather than only the first. That&rsquo;s old hat by this point, if you&rsquo;re still reading.</p>
+<p>So, with all of that broken down, our final expression is:</p>
+<p><code>:%s/\/\([^\/]\+\)//\*/1\*/g</code></p>
+<p>That makes a hell of a lot more sense to me than it did before. We&rsquo;ve created nothing; we&rsquo;ve built nothing, but I&rsquo;m very glad to have done this. Maybe by nixnib1000.0, I&rsquo;ll be able to read regex like nothing. That&rsquo;s a cute goal.</p>
+
+      </div></div>
+
+  
+    
+<div class="pagination">
+  <div class="pagination__title">
+    <span class="pagination__title-h">Read other posts</span>
+    <hr />
+  </div>
+  <div class="pagination__buttons">
+    
+    
+    
+      <a href="/posts/nixnib0001.0/" class="button inline next">
+        Nixnib0001.0
+      </a>
+    
+  </div>
+</div>
+
+
+  
+
+  
+    
+
+  
+</article>
+
+  </div>
+
+  
+    <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright">
+        <span>© 2025 Powered by <a href="https://gohugo.io">Hugo</a></span>
+    
+      <span>:: <a href="https://github.com/panr/hugo-theme-terminal" target="_blank">Theme</a> made by <a href="https://github.com/panr" target="_blank">panr</a></span>
+      </div>
+  </div>
+</footer>
+
+
+
+
+
+
+<script type="text/javascript" src="/bundle.min.js"></script>
+
+
+
+
+
+  
+</div>
+
+</body>
+</html>

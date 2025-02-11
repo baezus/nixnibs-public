@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Terminal</title>
+    <link>/</link>
+    <description>Recent content on Terminal</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Mon, 10 Feb 2025 23:42:14 -0500</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Nixnib0002.0</title>
+      <link>/posts/nixnib0002.0/</link>
+      <pubDate>Mon, 10 Feb 2025 23:14:42 -0500</pubDate>
+      
+      <guid>/posts/nixnib0002.0/</guid>
+      <description>Replacing Reserved Characters with %s/old//new/g in Vim nixnib 0002.0 As a learning exercise, I decided to needlessly complicate a simple process and see what it showed me.
+I was writing this section from nixnib001 in markdown, using vim:
+#### nib (n.) &amp;#34;1580s, &amp;#39;beak or bill of a bird,&amp;#39; Scottish variant of *neb*, &amp;#39;beak or bill of a bird.&amp;#39; Perhaps influenced by *nibble* (v.). Meaning &amp;#39;point&amp;#39; (of a pen or quill) is recorded by 1610s (*neb* in this sense is from 1590s).</description>
+      <content>&lt;h1 id=&#34;replacing-reserved-characters-with-soldnewg-in-vim&#34;&gt;Replacing Reserved Characters with %s/old//new/g in Vim&lt;/h1&gt;
+&lt;h4 id=&#34;nixnib-00020&#34;&gt;nixnib 0002.0&lt;/h4&gt;
+&lt;p&gt;As a learning exercise, I decided to needlessly complicate a simple process and see what it showed me.&lt;/p&gt;
+&lt;p&gt;I was writing this section from nixnib001 in markdown, using vim:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-markdown&#34; data-lang=&#34;markdown&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#### nib (n.)
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&amp;#34;1580s, &amp;#39;beak or bill of a bird,&amp;#39; Scottish variant of &lt;span style=&#34;font-style:italic&#34;&gt;*neb*&lt;/span&gt;, &amp;#39;beak or bill of a bird.&amp;#39; Perhaps influenced by &lt;span style=&#34;font-style:italic&#34;&gt;*nibble*&lt;/span&gt; (v.). Meaning &amp;#39;point&amp;#39; (of a pen or quill) is recorded by 1610s (*neb* in this sense is from 1590s).&amp;#34; (https://www.etymonline.com/word/nib)[etymonline]                                     
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;As I was writing this (just converting straight-up text to markdown, closer to transcribing than writing), I forgot how to enter italics in markdown, and wrote forward-slashes (&lt;code&gt;/&lt;/code&gt;) around every italicized word, as in &lt;code&gt;/nibble/&lt;/code&gt; and &lt;code&gt;/neb/&lt;/code&gt;, as placeholders to be corrected later. When I remembered that asterisks (&lt;code&gt;*&lt;/code&gt;) were the proper special character, I wanted to try to use the mysterious, important &lt;code&gt;%s/old/new/g&lt;/code&gt; vim command to edit the entire file at once. I&amp;rsquo;d heard about it studying for the RHCSA, and that is how it is presented in the study guide for EX200 by Sander Van Vugt.&lt;/p&gt;
+&lt;p&gt;I realized that forward-slashes are special characters, and this was going to be a regex nightmare. I got &lt;code&gt;:%s/\/*\//\*\\\*/g&lt;/code&gt; far when my brain broke. I understood that I had to escape the forward slashes, which is what &lt;code&gt;/\/*\/&lt;/code&gt; is trying to do.&lt;/p&gt;
+&lt;p&gt;I did not know how to express that I needed a variable range of characters within the escaped slashes (e.g., a &lt;code&gt;nibble&lt;/code&gt; as well as a &lt;code&gt;neb&lt;/code&gt;) to properly place the asterisks around the italicized words. Naturally, I pulled up ChatGPT (heretofore: Chat).&lt;/p&gt;
+&lt;p&gt;It gave me the following vim regex command, and then some explanation:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-vim&#34; data-lang=&#34;vim&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;:%&lt;span style=&#34;color:#a6e22e&#34;&gt;s&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;/\/\([^\/]\+\)\//&lt;/span&gt;\*\&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;\*/&lt;span style=&#34;color:#a6e22e&#34;&gt;g&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-markdown&#34; data-lang=&#34;markdown&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Explanation:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    \/ → Escapes the first / so it is treated as a literal slash.
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    \([^\/]\+\) → Captures (\(\)) one or more (\+) characters that are not a slash ([^\/]).
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    \/ → Matches the closing slash.
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    \*\1\* → Replaces with &lt;span style=&#34;font-style:italic&#34;&gt;*, then the captured text (\1), then another *&lt;/span&gt;.
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    g → Ensures all instances in a line are replaced.
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;I ran that command and it worked.&lt;/p&gt;
+&lt;p&gt;So, TL;DR you&amp;rsquo;re in this exact situation (lol), run this to replace all the &lt;code&gt;/&lt;/code&gt; around italicized words in vim with &lt;code&gt;*&lt;/code&gt;:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-vim&#34; data-lang=&#34;vim&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;:%&lt;span style=&#34;color:#a6e22e&#34;&gt;s&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;/\/\([^\/]\+\)\//&lt;/span&gt;\*\&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;\*/&lt;span style=&#34;color:#a6e22e&#34;&gt;g&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;I hope that saved you and planet earth a Chat processing token.&lt;/p&gt;
+&lt;p&gt;Trying to understand what it is my computer just did, I pulled up &lt;em&gt;The Linux Bible&lt;/em&gt; by Christopher Negus. The exalted text reveals that the &lt;code&gt;:s&lt;/code&gt; and &lt;code&gt;:g&lt;/code&gt; commands in vim are actually, basically, pre-historical. Ultimately, they actually come from an editor named &lt;code&gt;ex&lt;/code&gt;. They appear &lt;code&gt;sed&lt;/code&gt;-like (to me) because both ex and sed are children of ed, the OG Unix editor.&lt;/p&gt;
+&lt;p&gt;After the delimiter &lt;code&gt;:&lt;/code&gt; that opens a vim command,&lt;code&gt;s/&lt;/code&gt; is the actual command being run here: a substitute or find-and-replace. The &lt;code&gt;/g&lt;/code&gt; flag at the close of the line argues that the command should target for substitution &lt;em&gt;every&lt;/em&gt; instance on a line of &amp;ldquo;old&amp;rdquo; for &amp;ldquo;new,&amp;rdquo; rather than stop at the first instance on a line. The default behavior for &lt;code&gt;:s&lt;/code&gt; is for only the first result on the first line found to be changed.&lt;/p&gt;
+&lt;p&gt;Every instance of &amp;ldquo;old&amp;rdquo; on the first line where &amp;ldquo;old&amp;rdquo; occurs is included by &lt;code&gt;/g&lt;/code&gt;, but the command still only targets that first line it finds. To include every line in the file as a potential target, we add the &lt;code&gt;%&lt;/code&gt; before &lt;code&gt;s&lt;/code&gt;. That signifies that every line in the file must be acted on, regardless of whether the line prior did or did not include an instance of &amp;ldquo;old.&amp;rdquo;&lt;/p&gt;
+&lt;p&gt;Interestingly, &lt;em&gt;The Linux Bible&lt;/em&gt; offers the command as &lt;code&gt;:g/Local/s//Remote/g&lt;/code&gt; rather than &lt;code&gt;:%s/old/new/g&lt;/code&gt;. It eliminates the &lt;code&gt;%&lt;/code&gt; by running &lt;code&gt;s&lt;/code&gt; as a global command upon a given pattern, with (&lt;code&gt;:g/&amp;lt;!pattern!&amp;gt;/&lt;/code&gt;). Rather than running the &lt;code&gt;s&lt;/code&gt; program against every line, then, the &lt;code&gt;:g&lt;/code&gt; command will only run &lt;code&gt;s&lt;/code&gt; against the lines that are found to match the given pattern.&lt;/p&gt;
+&lt;p&gt;Far fewer lines are &amp;rsquo;touched&amp;rsquo; or modified this way, which is resourceful. This method can also protect from unintended replacements, according to Chat, but its examples didn&amp;rsquo;t prove that very well to me. I like both, and I like more knowing the difference. Please send me any examples or explanations you have that can further explain that difference.&lt;/p&gt;
+&lt;p&gt;Back to the wild regex. My goal is to understand. Next chunk up, with &lt;code&gt;:%s\/\.../g&lt;/code&gt; covered, is &lt;code&gt;\([^\/]\+\)\/&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;I guess regex phrases are best understood like meter in poetry, where minute sub-units dictate cardinal meaning-making boundaries, and these boundaries must be mapped to extract the phrases. What I mean is, in formal poetry, there&amp;rsquo;s a significant difference in interpretation when &lt;code&gt;\ _ \ _&lt;/code&gt; (stress-unstress-stress-unstress) is read as, simply, two trochees, versus as a headless iamb followed by another iamb with an extra unstressed syllable. As in poetry, so in regex. The difference between &lt;code&gt;\/\/\&lt;/code&gt; and &lt;code&gt;\/\&lt;/code&gt;is ginormous.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;s/&lt;/code&gt; to begin the substitution command&lt;/p&gt;
+&lt;p&gt;&amp;amp; &lt;code&gt;\/&lt;/code&gt; to escape the opening forward-slash as a literal character&lt;/p&gt;
+&lt;p&gt;&amp;amp; &lt;code&gt;\(&lt;/code&gt; open the sub-pattern capture group&lt;/p&gt;
+&lt;p&gt;&amp;amp;&lt;code&gt;[^\/]&lt;/code&gt;  should be understood as &lt;code&gt;[^...]&lt;/code&gt; because that is another sub-group. &lt;code&gt;^&lt;/code&gt; signals NOT, the anti-pattern of what is contained in the brackets. In this case, we have an escaped forward-slash. So we are gathering every character that is not a slash.&lt;/p&gt;
+&lt;p&gt;Important: Within a &lt;code&gt;[^...]&lt;/code&gt; construction, most special characters are understood as literals and do not need to be escaped. The only ones that need to be escaped are those that function specially within the &lt;code&gt;[^...]&lt;/code&gt;, like hyphens. This won&amp;rsquo;t cause an error, but that is why, in this case, the &lt;code&gt;\&lt;/code&gt; and &lt;code&gt;/&lt;/code&gt; don&amp;rsquo;t require escaping, if you were wondering.&lt;/p&gt;
+&lt;p&gt;&amp;amp; &lt;code&gt;\+&lt;/code&gt; an open-ended counter, to match one or more of the anti-pattern previous.&lt;/p&gt;
+&lt;p&gt;&amp;amp; &lt;code&gt;\)&lt;/code&gt; escape the sub-pattern capture group closing&lt;/p&gt;
+&lt;p&gt;&amp;amp; &lt;code&gt;\/&lt;/code&gt; to escape the closing forward-slash as a literal character. This seals the capture group as the content of my errant placeholder forward-slashes.&lt;/p&gt;
+&lt;p&gt;The parenthetical regex structure creates a (&lt;a href=&#34;https://www.regular-expressions.info/brackets.html&#34;&gt;https://www.regular-expressions.info/brackets.html&lt;/a&gt;) [capturing group]. They&amp;rsquo;re kind of like, how, with a bash script, every argument that follows the command is given a variable name of $1, $2, &amp;hellip; etc. following the cmd itself at $0. A capturing group in regex can be used to grab the part of a string that matches the sub-pattern declared within parenthesis, and then refer to that pattern (or submatch) with a numerical figure (as in, &lt;code&gt;\1&lt;/code&gt;).&lt;/p&gt;
+&lt;p&gt;So in the above, &lt;code&gt;\(&lt;/code&gt; is the beginning of our capture group, and &lt;code&gt;\)&lt;/code&gt; is the end. We should be able to re-use content captured by the submatch.&lt;/p&gt;
+&lt;p&gt;After the &lt;code&gt;\/&lt;/code&gt; that follows completes the search portion of our expression, a standalone &lt;code&gt;/&lt;/code&gt; opens the replacement portion of the substitution command.&lt;/p&gt;
+&lt;p&gt;Next, we have: &lt;code&gt;\*\1\*/&lt;/code&gt;. This part is far simpler.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;\*&lt;/code&gt; is an escaped asterisk character, which signals italics in markdown, opening the replacement string&lt;/p&gt;
+&lt;p&gt;&amp;amp; &lt;code&gt;\1&lt;/code&gt; refers to our captured sub-match above. On a given line that matches the search for an enclosing &lt;code&gt;\/...\/&lt;/code&gt;, the partial match of all characters within the &lt;code&gt;\([^\/]\+\)\/&lt;/code&gt; are deployed in the replacement string where that &lt;code&gt;\1&lt;/code&gt; resides. In our case, after the opening asterisk.&lt;/p&gt;
+&lt;p&gt;&amp;amp; &lt;code&gt;\*&lt;/code&gt; is simply an escaped closing asterisk&lt;/p&gt;
+&lt;p&gt;&amp;amp; &lt;code&gt;/&lt;/code&gt; is the close of our replacement string, a structure of the larger &lt;code&gt;:%s/.../.../&lt;/code&gt; pattern.&lt;/p&gt;
+&lt;p&gt;Finally, we have the trailing flag &lt;code&gt;g&lt;/code&gt;, which has our search &amp;amp; substitute operate on all instances within a line, rather than only the first. That&amp;rsquo;s old hat by this point, if you&amp;rsquo;re still reading.&lt;/p&gt;
+&lt;p&gt;So, with all of that broken down, our final expression is:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;:%s/\/\([^\/]\+\)//\*/1\*/g&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;That makes a hell of a lot more sense to me than it did before. We&amp;rsquo;ve created nothing; we&amp;rsquo;ve built nothing, but I&amp;rsquo;m very glad to have done this. Maybe by nixnib1000.0, I&amp;rsquo;ll be able to read regex like nothing. That&amp;rsquo;s a cute goal.&lt;/p&gt;
+</content>
+    </item>
+    
+    <item>
+      <title>Nixnib0001.0</title>
+      <link>/posts/nixnib0001.0/</link>
+      <pubDate>Mon, 10 Feb 2025 23:12:48 -0500</pubDate>
+      
+      <guid>/posts/nixnib0001.0/</guid>
+      <description>Installing Go 1.23.6 on Rocky 9.5 Minimal nixnib 0001.0 sudo dnf --enablerepo=devel install wget tar
+wget https://go.dev/dl/go1.23.6.linux-amd64.tar.gz
+sudo tar -C /usr/local -xzf go1.23.6.linux-amd64.tar.gz
+vim ~/.bash_profile
+export PATH=$PATH:/usr/local/go/bin
+source ~/.bash_profile
+go version
+mkdir go &amp;amp;&amp;amp; cd go
+mkdir src pkg bin test
+cd test
+vim test.go:
+import &amp;#34;fmt&amp;#34; func main() { fmt.Println(&amp;#34;test&amp;#34;) } go build test.go
+go run test.go
+./test</description>
+      <content>&lt;h1 id=&#34;installing-go-1236-on-rocky-95-minimal&#34;&gt;Installing Go 1.23.6 on Rocky 9.5 Minimal&lt;/h1&gt;
+&lt;h4 id=&#34;nixnib-00010&#34;&gt;nixnib 0001.0&lt;/h4&gt;
+&lt;p&gt;&lt;code&gt;sudo dnf --enablerepo=devel install wget tar&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;wget https://go.dev/dl/go1.23.6.linux-amd64.tar.gz&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;sudo tar -C /usr/local -xzf go1.23.6.linux-amd64.tar.gz&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;vim ~/.bash_profile&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;export PATH=$PATH:/usr/local/go/bin&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;source ~/.bash_profile&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;go version&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;mkdir go &amp;amp;&amp;amp; cd go&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;mkdir src pkg bin test&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;cd test&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;vim test.go&lt;/code&gt;:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;fmt&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;func&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;main&lt;/span&gt;() {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;fmt&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;Println&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;test&amp;#34;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;code&gt;go build test.go&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;go run test.go&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;./test&lt;/code&gt;&lt;/p&gt;
+</content>
+    </item>
+    
+    <item>
+      <title>Nixnib0000.0</title>
+      <link>/posts/nixnib0000.0/</link>
+      <pubDate>Mon, 10 Feb 2025 23:11:10 -0500</pubDate>
+      
+      <guid>/posts/nixnib0000.0/</guid>
+      <description>nixnib nix (n.) The name Unics (Uniplexed Information and Computing Service, pronounced as &amp;ldquo;eunuchs&amp;rdquo;), a pun on Multics (Multiplexed Information and Computer Services), was initially suggested for the project in 1970. Brian Kernighan claims the coining for himself, and adds that &amp;ldquo;no one can remember&amp;rdquo; who came up with the final spelling Unix.
+from wikipedia
+nib (n.) 1580s, &amp;lsquo;beak or bill of a bird,&amp;rsquo; Scottish variant of neb, &amp;lsquo;beak or bill of a bird.</description>
+      <content>&lt;h1 id=&#34;nixnib&#34;&gt;nixnib&lt;/h1&gt;
+&lt;h4 id=&#34;nix-n&#34;&gt;nix (n.)&lt;/h4&gt;
+&lt;blockquote&gt;
+&lt;p&gt;The name Unics (Uniplexed Information and Computing Service, pronounced as &amp;ldquo;eunuchs&amp;rdquo;), a pun on Multics (Multiplexed Information and Computer Services), was initially suggested for the project in 1970. Brian Kernighan claims the coining for himself, and adds that &amp;ldquo;no one can remember&amp;rdquo; who came up with the final spelling &lt;em&gt;Unix&lt;/em&gt;.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;em&gt;from&lt;/em&gt; &lt;a href=&#34;https://en.wikipedia.org/wiki/Unix&#34;&gt;wikipedia&lt;/a&gt;&lt;/p&gt;
+&lt;h4 id=&#34;nib-n&#34;&gt;nib (n.)&lt;/h4&gt;
+&lt;blockquote&gt;
+&lt;p&gt;1580s, &amp;lsquo;beak or bill of a bird,&amp;rsquo; Scottish variant of &lt;em&gt;neb&lt;/em&gt;, &amp;lsquo;beak or bill of a bird.&amp;rsquo; Perhaps influenced by &lt;em&gt;nibble&lt;/em&gt; (v.). Meaning &amp;lsquo;point&amp;rsquo; (of a pen or quill) is recorded by 1610s (&lt;em&gt;neb&lt;/em&gt; in this sense is from 1590s).&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;em&gt;from&lt;/em&gt; &lt;a href=&#34;https://www.etymonline.com/word/nib&#34;&gt;etymonline&lt;/a&gt;
+~&lt;/p&gt;
+</content>
+    </item>
+    
+  </channel>
+</rss>
